@@ -1,0 +1,296 @@
+type WeeklySummary = 
+ record {
+   averageDailyCalories: float64;
+   dailySummaries: vec DailyCalorieSummary;
+   totalCalories: float64;
+   weekEnd: text;
+   weekStart: text;
+ };
+type UserProfile = 
+ record {
+   basicInfo: BasicInfo;
+   createdAt: Timestamp;
+   healthProfile: opt HealthProfile;
+   id: UserId;
+   lastLogin: Timestamp;
+   lifestyle: opt LifestyleHabits;
+   registrationStep: nat;
+ };
+type UserId = principal;
+type Timestamp = int;
+type SymptomEntry = 
+ record {
+   id: nat;
+   remedies: vec text;
+   severity: nat;
+   symptomsText: text;
+   timestamp: Timestamp;
+   userId: UserId;
+ };
+type RiskScoreEntry = 
+ record {
+   bmi: float64;
+   factors: vec text;
+   id: nat;
+   riskLevel: RiskLevel;
+   score: nat;
+   timestamp: Timestamp;
+   userId: UserId;
+ };
+type RiskLevel = 
+ variant {
+   green;
+   red;
+   yellow;
+ };
+type RegisterStep3Request = 
+ record {
+   alcoholConsumption: bool;
+   fitnessGoals: text;
+   sleepHoursPerNight: float64;
+   smokingStatus: bool;
+   stressLevel: nat;
+ };
+type RegisterStep2Request = 
+ record {
+   activityLevel: ActivityLevel;
+   age: nat;
+   dailyCalorieGoal: nat;
+   dietType: DietType;
+   heightCm: float64;
+   medicalConditions: vec MedicalCondition;
+   weightKg: float64;
+ };
+type RegisterStep1Request = 
+ record {
+   dateOfBirth: text;
+   email: text;
+   fullName: text;
+   gender: text;
+   passwordHash: text;
+   username: text;
+ };
+type PortionSize = 
+ variant {
+   large;
+   medium;
+   small;
+ };
+type NutritionPer100g = 
+ record {
+   caloriesPer100g: float64;
+   carbsG: float64;
+   fatG: float64;
+   fiberG: float64;
+   proteinG: float64;
+   sugarG: float64;
+ };
+type MoodSummary = 
+ record {
+   averageScore: float64;
+   entries: vec MoodEntry;
+   period: text;
+ };
+type MoodEntry = 
+ record {
+   id: nat;
+   note: text;
+   score: nat;
+   timestamp: Timestamp;
+   userId: UserId;
+ };
+type MedicalCondition = 
+ variant {
+   diabetes;
+   none;
+   obesity;
+   pcod;
+   thyroid;
+ };
+type MealType = 
+ variant {
+   breakfast;
+   dinner;
+   lunch;
+   snack;
+ };
+type MealFoodEntry = 
+ record {
+   calories: float64;
+   carbs: float64;
+   fat: float64;
+   fiber: float64;
+   foodItemId: nat;
+   foodName: text;
+   gramsEstimate: float64;
+   portionSize: PortionSize;
+   protein: float64;
+   sugar: float64;
+ };
+type Meal = 
+ record {
+   foods: vec MealFoodEntry;
+   id: nat;
+   mealType: MealType;
+   note: text;
+   timestamp: Timestamp;
+   totalCalories: float64;
+   totalCarbs: float64;
+   totalFat: float64;
+   totalProtein: float64;
+   userId: UserId;
+ };
+type LoginRequest = 
+ record {
+   email: text;
+   password: text;
+ };
+type LifestyleHabits = 
+ record {
+   alcoholConsumption: bool;
+   fitnessGoals: text;
+   sleepHoursPerNight: float64;
+   smokingStatus: bool;
+   stressLevel: nat;
+ };
+type HistoryEvent = 
+ record {
+   category: HistoryCategory;
+   description: text;
+   id: nat;
+   timestamp: Timestamp;
+   title: text;
+   userId: UserId;
+ };
+type HistoryCategory = 
+ variant {
+   meal;
+   mood;
+   riskScore;
+   symptom;
+ };
+type HealthReport = 
+ record {
+   calorieSummaryText: text;
+   dailyTip: text;
+   dietRecommendation: opt DietRecommendation;
+   generatedAt: Timestamp;
+   latestRiskScore: opt RiskScoreEntry;
+   moodSummary: MoodSummary;
+   recentSymptoms: vec SymptomEntry;
+   userId: UserId;
+ };
+type HealthProfile = 
+ record {
+   activityLevel: ActivityLevel;
+   age: nat;
+   dailyCalorieGoal: nat;
+   dietType: DietType;
+   heightCm: float64;
+   medicalConditions: vec MedicalCondition;
+   weightKg: float64;
+ };
+type FoodItem = 
+ record {
+   category: text;
+   id: nat;
+   isIndian: bool;
+   name: text;
+   nutrition: NutritionPer100g;
+ };
+type ExerciseItem = 
+ record {
+   condition: MedicalCondition;
+   description: text;
+   difficultyLevel: text;
+   durationMinutes: nat;
+   exerciseType: text;
+   id: nat;
+   title: text;
+   youtubeUrl: text;
+ };
+type DietType = 
+ variant {
+   eggetarian;
+   nonVegetarian;
+   vegan;
+   vegetarian;
+ };
+type DietRecommendation = 
+ record {
+   avoidFoods: vec text;
+   condition: MedicalCondition;
+   recommendedFoods: vec text;
+   sevenDayPlan: vec vec text;
+   tips: vec text;
+ };
+type DailyCalorieSummary = 
+ record {
+   date: text;
+   goal: nat;
+   meals: vec Meal;
+   percentageUsed: float64;
+   remainingCalories: float64;
+   totalCalories: float64;
+ };
+type BasicInfo = 
+ record {
+   dateOfBirth: text;
+   email: text;
+   fullName: text;
+   gender: text;
+   passwordHash: text;
+   username: text;
+ };
+type AuthResult = 
+ variant {
+   err: text;
+   ok: UserProfile;
+ };
+type AddMealRequest = 
+ record {
+   foods: vec MealFoodEntry;
+   mealType: MealType;
+   note: text;
+ };
+type ActivityLevel = 
+ variant {
+   active;
+   light;
+   moderate;
+   sedentary;
+   veryActive;
+ };
+service : {
+  calculateRiskScore: () -> (RiskScoreEntry);
+  checkSymptoms: (symptomsText: text) -> (SymptomEntry);
+  deleteMeal: (mealId: nat) -> (bool);
+  generateHealthReport: () -> (HealthReport);
+  getDailySummary: (date: text) -> (DailyCalorieSummary) query;
+  getDailyTip: () -> (text) query;
+  getDietRecommendation: () -> (vec DietRecommendation) query;
+  getExercises: () -> (vec ExerciseItem) query;
+  getExercisesByCondition: (condition: MedicalCondition) ->
+   (vec ExerciseItem) query;
+  getFoodById: (id: nat) -> (opt FoodItem) query;
+  getHealthHistory: (categoryFilter: opt HistoryCategory, fromTs: opt int,
+   toTs: opt int) -> (vec HistoryEvent) query;
+  getLatestRiskScore: () -> (opt RiskScoreEntry) query;
+  getMealHistory: (offset: nat, limit: nat) -> (vec Meal) query;
+  getMealsForDate: (date: text) -> (vec Meal) query;
+  getMoodEntries: (period: text) -> (MoodSummary) query;
+  getMyProfile: () -> (opt UserProfile) query;
+  getSymptomHistory: (offset: nat, limit: nat) -> (vec SymptomEntry) query;
+  getWeeklySummary: (weekStart: text) -> (WeeklySummary) query;
+  listFoods: (offset: nat, limit: nat) -> (vec FoodItem) query;
+  logMeal: (req: AddMealRequest) -> (Meal);
+  logMood: (score: nat, note: text) -> (MoodEntry);
+  login: (req: LoginRequest) -> (AuthResult);
+  registerStep1: (req: RegisterStep1Request) -> (AuthResult);
+  registerStep2: (req: RegisterStep2Request) -> (AuthResult);
+  registerStep3: (req: RegisterStep3Request) -> (AuthResult);
+  searchFoods: (searchTerm: text) -> (vec FoodItem) query;
+  setCalorieGoal: (goal: nat) -> (AuthResult);
+  updateHealthProfile: (req: RegisterStep2Request) -> (AuthResult);
+  updateLifestyle: (req: RegisterStep3Request) -> (AuthResult);
+}

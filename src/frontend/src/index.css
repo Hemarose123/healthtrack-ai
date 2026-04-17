@@ -1,0 +1,186 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Bricolage Grotesque";
+    --font-body: "DM Sans";
+    --font-mono: "JetBrains Mono";
+    --radius: 0.75rem;
+
+    /* Ocean Blue palette — #0077B6 primary, #00B4D8 secondary, #52B788 accent */
+    --background: 0.97 0.005 220;
+    --foreground: 0.15 0.02 230;
+
+    --card: 1.0 0 0;
+    --card-foreground: 0.12 0.02 230;
+
+    --popover: 1.0 0 0;
+    --popover-foreground: 0.12 0.02 230;
+
+    /* Primary: #0077B6 → oklch(0.48 0.14 232) */
+    --primary: 0.48 0.14 232;
+    --primary-foreground: 0.99 0 0;
+
+    /* Secondary: #00B4D8 → oklch(0.68 0.14 217) */
+    --secondary: 0.68 0.14 217;
+    --secondary-foreground: 0.1 0.02 230;
+
+    --muted: 0.94 0.01 220;
+    --muted-foreground: 0.48 0.03 230;
+
+    /* Accent: #52B788 → oklch(0.68 0.13 155) */
+    --accent: 0.68 0.13 155;
+    --accent-foreground: 0.1 0.02 155;
+
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.99 0 0;
+
+    --border: 0.88 0.02 220;
+    --input: 0.95 0.01 220;
+    --ring: 0.48 0.14 232;
+
+    /* Chart colors */
+    --chart-1: 0.48 0.14 232;
+    --chart-2: 0.68 0.14 217;
+    --chart-3: 0.68 0.13 155;
+    --chart-4: 0.65 0.18 85;
+    --chart-5: 0.6 0.15 40;
+
+    --sidebar: 1.0 0 0;
+    --sidebar-foreground: 0.12 0.02 230;
+    --sidebar-primary: 0.48 0.14 232;
+    --sidebar-primary-foreground: 0.99 0 0;
+    --sidebar-accent: 0.94 0.01 220;
+    --sidebar-accent-foreground: 0.15 0.02 230;
+    --sidebar-border: 0.88 0.02 220;
+    --sidebar-ring: 0.48 0.14 232;
+  }
+
+  .dark {
+    --background: 0.11 0.02 230;
+    --foreground: 0.93 0.01 220;
+
+    --card: 0.15 0.025 228;
+    --card-foreground: 0.92 0.01 220;
+
+    --popover: 0.17 0.02 228;
+    --popover-foreground: 0.92 0.01 220;
+
+    --primary: 0.65 0.13 217;
+    --primary-foreground: 0.1 0.02 230;
+
+    --secondary: 0.55 0.12 220;
+    --secondary-foreground: 0.9 0.01 220;
+
+    --muted: 0.2 0.02 228;
+    --muted-foreground: 0.58 0.02 220;
+
+    --accent: 0.65 0.12 155;
+    --accent-foreground: 0.1 0.02 155;
+
+    --destructive: 0.6 0.22 25;
+    --destructive-foreground: 0.93 0 0;
+
+    --border: 0.22 0.02 228;
+    --input: 0.2 0.02 228;
+    --ring: 0.65 0.13 217;
+
+    --chart-1: 0.65 0.13 217;
+    --chart-2: 0.68 0.12 155;
+    --chart-3: 0.62 0.16 85;
+    --chart-4: 0.58 0.14 40;
+    --chart-5: 0.52 0.18 258;
+
+    --sidebar: 0.15 0.025 228;
+    --sidebar-foreground: 0.92 0.01 220;
+    --sidebar-primary: 0.65 0.13 217;
+    --sidebar-primary-foreground: 0.1 0.02 230;
+    --sidebar-accent: 0.2 0.02 228;
+    --sidebar-accent-foreground: 0.88 0.01 220;
+    --sidebar-border: 0.22 0.02 228;
+    --sidebar-ring: 0.65 0.13 217;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-elevated {
+    @apply bg-card shadow-elevated rounded-lg border border-border transition-smooth hover:shadow-lg;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-foreground px-4 py-2 rounded-md font-semibold transition-smooth hover:opacity-90 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground border border-secondary px-4 py-2 rounded-md font-semibold transition-smooth hover:opacity-90 active:scale-95;
+  }
+
+  .btn-accent {
+    @apply bg-accent text-accent-foreground px-4 py-2 rounded-md font-semibold transition-smooth hover:opacity-90 active:scale-95;
+  }
+
+  .health-metric-ring {
+    @apply rounded-full border-4 transition-smooth;
+  }
+
+  .emoji-icon {
+    @apply text-2xl leading-none select-none;
+  }
+
+  .shadow-subtle {
+    box-shadow: 0 1px 3px 0 rgb(0 119 182 / 0.08);
+  }
+
+  .page-container {
+    @apply max-w-4xl mx-auto px-4 py-6 lg:px-6;
+  }
+
+  .section-title {
+    @apply font-display font-bold text-xl text-foreground;
+  }
+
+  .badge-green {
+    @apply bg-accent/10 text-accent border border-accent/20 text-xs font-semibold px-2 py-0.5 rounded-full;
+  }
+
+  .badge-blue {
+    @apply bg-primary/10 text-primary border border-primary/20 text-xs font-semibold px-2 py-0.5 rounded-full;
+  }
+
+  .badge-yellow {
+    @apply bg-yellow-500/10 text-yellow-700 border border-yellow-500/20 text-xs font-semibold px-2 py-0.5 rounded-full;
+  }
+
+  .badge-red {
+    @apply bg-destructive/10 text-destructive border border-destructive/20 text-xs font-semibold px-2 py-0.5 rounded-full;
+  }
+}

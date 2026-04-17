@@ -1,0 +1,192 @@
+// Version: 1.0.0
+type ActivityLevel__893101734 =
+  {#active; #light; #moderate; #sedentary; #veryActive};
+type BasicInfo__982200534 =
+  {
+    dateOfBirth : Text;
+    email : Text;
+    fullName : Text;
+    gender : Text;
+    passwordHash : Text;
+    username : Text
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type DietType__995571231 = {#eggetarian; #nonVegetarian; #vegan; #vegetarian};
+type ExerciseItem__834512854 =
+  {
+    condition : MedicalCondition__61072769;
+    description : Text;
+    difficultyLevel : Text;
+    durationMinutes : Nat;
+    exerciseType : Text;
+    id : Nat;
+    title : Text;
+    youtubeUrl : Text
+  };
+type FoodItem__337809765 =
+  {
+    category : Text;
+    id : Nat;
+    isIndian : Bool;
+    name : Text;
+    nutrition : NutritionPer100g__815297702
+  };
+type HealthProfile__615842776 =
+  {
+    activityLevel : ActivityLevel__893101734;
+    age : Nat;
+    dailyCalorieGoal : Nat;
+    dietType : DietType__995571231;
+    heightCm : Float;
+    medicalConditions : [MedicalCondition__61072769];
+    weightKg : Float
+  };
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type LifestyleHabits__166769809 =
+  {
+    alcoholConsumption : Bool;
+    fitnessGoals : Text;
+    sleepHoursPerNight : Float;
+    smokingStatus : Bool;
+    stressLevel : Nat
+  };
+type MealFoodEntry__6692434 =
+  {
+    calories : Float;
+    carbs : Float;
+    fat : Float;
+    fiber : Float;
+    foodItemId : Nat;
+    foodName : Text;
+    gramsEstimate : Float;
+    portionSize : PortionSize__492868359;
+    protein : Float;
+    sugar : Float
+  };
+type MealType__463858064 = {#breakfast; #dinner; #lunch; #snack};
+type Meal__440901301 =
+  {
+    foods : [MealFoodEntry__6692434];
+    id : Nat;
+    mealType : MealType__463858064;
+    note : Text;
+    timestamp : Timestamp__649633804;
+    totalCalories : Float;
+    totalCarbs : Float;
+    totalFat : Float;
+    totalProtein : Float;
+    userId : UserId__193290783
+  };
+type MedicalCondition__61072769 =
+  {#diabetes; #none; #obesity; #pcod; #thyroid};
+type MoodEntry__193334346 =
+  {
+    id : Nat;
+    note : Text;
+    score : Nat;
+    timestamp : Timestamp__545570609;
+    userId : UserId__1072319785
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type NutritionPer100g__815297702 =
+  {
+    caloriesPer100g : Float;
+    carbsG : Float;
+    fatG : Float;
+    fiberG : Float;
+    proteinG : Float;
+    sugarG : Float
+  };
+type PortionSize__492868359 = {#large; #medium; #small};
+type RiskLevel__200299697 = {#green; #red; #yellow};
+type RiskScoreEntry__1065798898 =
+  {
+    bmi : Float;
+    factors : [Text];
+    id : Nat;
+    riskLevel : RiskLevel__200299697;
+    score : Nat;
+    timestamp : Timestamp__545570609;
+    userId : UserId__1072319785
+  };
+type SymptomEntry__730578280 =
+  {
+    id : Nat;
+    remedies : [Text];
+    severity : Nat;
+    symptomsText : Text;
+    timestamp : Timestamp__545570609;
+    userId : UserId__1072319785
+  };
+type Timestamp__301639476 = Int;
+type Timestamp__545570609 = Timestamp__301639476;
+type Timestamp__608627923 = Timestamp__301639476;
+type Timestamp__649633804 = Timestamp__301639476;
+type UserId__1072319785 = UserId__158757552;
+type UserId__158757552 = Principal;
+type UserId__193290783 = UserId__158757552;
+type UserId__911210446 = UserId__158757552;
+type User__455962502 =
+  {
+    var basicInfo : BasicInfo__982200534;
+    createdAt : Timestamp__608627923;
+    var healthProfile : ?HealthProfile__615842776;
+    id : UserId__911210446;
+    var lastLogin : Timestamp__608627923;
+    var lifestyle : ?LifestyleHabits__166769809;
+    var registrationStep : Nat
+  };
+actor {
+  stable exercises :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ExerciseItem__834512854]];
+      var elementIndex : Nat__490723111
+    };
+  stable foodDb :
+    {
+      var root : Node__46230540<Nat, FoodItem__337809765>;
+      var size : Nat__490723111
+    };
+  stable meals :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Meal__440901301]];
+      var elementIndex : Nat__490723111
+    };
+  stable moodEntries :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?MoodEntry__193334346]];
+      var elementIndex : Nat__490723111
+    };
+  stable nextMealId : {var value : Nat};
+  stable nextMoodId : {var value : Nat};
+  stable nextRiskId : {var value : Nat};
+  stable nextSymptomId : {var value : Nat};
+  stable nextUserId : {var value : Nat};
+  stable riskScoreEntries :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?RiskScoreEntry__1065798898]];
+      var elementIndex : Nat__490723111
+    };
+  stable symptomEntries :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?SymptomEntry__730578280]];
+      var elementIndex : Nat__490723111
+    };
+  stable users :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?User__455962502]];
+      var elementIndex : Nat__490723111
+    }
+};

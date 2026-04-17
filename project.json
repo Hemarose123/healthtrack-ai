@@ -1,0 +1,29 @@
+{
+  "overview": "AI-powered Digital Healthcare Analysis & Tracker with integrated Food Plate Calorie Scanner. Users can photograph meals to instantly see calorie counts and nutrition breakdowns, track daily mood, check symptoms, view health risk scores, and download comprehensive health reports — all in a beautiful ocean-blue card UI.",
+  "features": [
+    "Food Plate Calorie Scanner with AI food detection",
+    "Daily calorie tracking with goal progress ring",
+    "Mood tracker with weekly trend charts",
+    "Symptoms checker with natural remedy suggestions",
+    "Health risk score (BMI-based, color-coded)",
+    "AI diet recommendations by health condition",
+    "Health history timeline",
+    "Downloadable health report PDF",
+    "3-step onboarding with health profile",
+    "Data visualization dashboard with Recharts",
+    "Ocean-blue mobile-responsive PWA",
+    "Medical disclaimers on all AI result pages"
+  ],
+  "category": "health",
+  "tags": [
+    "healthcare",
+    "nutrition",
+    "calorie-tracker",
+    "mood-tracking",
+    "ai",
+    "food-scanner",
+    "health-dashboard",
+    "pwa"
+  ],
+  "last_updated": "2026-04-16T08:16:26.134Z"
+}
